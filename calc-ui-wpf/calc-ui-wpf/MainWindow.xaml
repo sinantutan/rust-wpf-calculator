@@ -7,6 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
 
+        <TextBox Grid.Row="1" 
+                 Grid.Column="1" 
+                 Grid.ColumnSpan="4"
+                 Height="50"
+                 InputScope="Number"></TextBox>
+
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Name="addNum"/>
     </Grid>
 </Window>

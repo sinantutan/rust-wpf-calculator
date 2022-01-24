@@ -4,23 +4,27 @@ fn main() {
 }
 
 /// add two f64 numbers
-pub fn add_f64(num1: f64, num2: f64) -> f64 {
+#[no_mangle]
+pub extern fn add_f64(num1: f64, num2: f64) -> f64 {
     num1 + num2
 }
 
 /// substract two two f64 numbers
 /// floating point numbers are weird so we use this rounding trick
-pub fn sub_f64(num1: f64, num2: f64) -> f64 {
+#[no_mangle]
+pub extern fn sub_f64(num1: f64, num2: f64) -> f64 {
     ((num1 - num2)*1e5_f64).round()/1e5_f64
 }
 
 // multiply two f64 numbers
-pub fn multi_f64(num1: f64, num2: f64) -> f64 {
+#[no_mangle]
+pub extern fn multi_f64(num1: f64, num2: f64) -> f64 {
     num1 * num2
 }
 
 /// divide two f64 numbers
-pub fn div_f64(num1: f64, num2: f64) -> f64 {
+#[no_mangle]
+pub extern fn div_f64(num1: f64, num2: f64) -> f64 {
     if num2 != 0_f64 {
         num1 / num2
     }

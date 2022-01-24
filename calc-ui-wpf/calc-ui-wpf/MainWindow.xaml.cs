@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using calc_ui_wpf.ViewModels;
 
-namespace calc_ui_wpf
+
+namespace calc_ui_wpf 
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,7 +24,11 @@ namespace calc_ui_wpf
     {
         public MainWindow()
         {
+            var calcViewModel = new CalculatorViewModel();
+            double newNum = calcViewModel.AddNumbers(40.0, 60.0);
             InitializeComponent();
+
+            addNum.Content = newNum.ToString();
         }
     }
 }
