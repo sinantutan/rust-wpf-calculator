@@ -336,4 +336,4 @@ ASALocalRun/
 
 # Added by cargo
 
-/target
+/rust_proj/target
