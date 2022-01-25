@@ -147,8 +147,18 @@
                     </Style>
                 </Label.Resources>
             </Label>
-            <Label Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="0" Content="v0.001" Foreground="#FF7203" FontSize="8" Opacity="0.4" FontStretch="UltraCondensed" Margin="-32,4,0,0"/>
-
+            <Label Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="0" Content="v0.001" Foreground="#FF7203" FontSize="8" FontStretch="UltraCondensed" Margin="-32,4,0,0">
+                <Label.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Resources>
+            </Label>
             <Button x:Name="exitRustCalcButton" Grid.Column="5" Grid.Row="0" Background="Transparent" BorderThickness="0" Content="X" Foreground="#FF7203" Opacity="0.7" FontStretch="UltraCondensed" Margin="10,-10,-10,0" Height="20" Width="20" Click="exitRustCalcButton_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Button}">
@@ -190,7 +200,7 @@
         </Grid>
         <Image x:Name="ferrisImg"  Stretch="Uniform" 
                Width="80" Grid.Column="0" Grid.ColumnSpan="3" 
-               HorizontalAlignment="Left" Grid.Row="2" Margin="10,20,0,0" Opacity="0.8" >
+               HorizontalAlignment="Left" Grid.Row="2" Margin="10,20,0,0" Opacity="0.6" >
             <Image.Resources>
                 <Style TargetType="{x:Type Image}">
                     <Setter Property="Source" Value="/Resources/rustacean-org.png"/>

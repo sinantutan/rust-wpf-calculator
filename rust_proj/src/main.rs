@@ -33,6 +33,34 @@ pub extern fn div_f64(num1: f64, num2: f64) -> f64 {
     }
 }
 
+/// right now only full numbers (aka no digits)
+#[no_mangle]
+pub extern fn pow_f64(base: f64,  rase: f64) -> f64 {
+    let mut res = 1_f64;
+    if rase == 0_f64 {
+        return 1_f64;
+    }
+    else if rase < 0_f64 {
+        let base = rase * (-1_f64);
+        for _i in 1..=base as u8{
+            res = res * base;
+        }
+        return 1_f64/res
+    } 
+    else {    
+        for _i in 1..=rase as u8{
+        res = res * base;
+        }
+        return res
+    }
+
+}
+
+/// take power of 2
+pub extern fn pow2_f64(base: f64) -> f64 {
+    return base * base
+}
+
 
 #[cfg(test)]
 pub mod tests{
@@ -76,6 +104,26 @@ pub mod tests{
     #[test]
     fn div_test2(){
         assert_eq!(crate::div_f64(15.30, 0.64), 23.90625_f64)
+    }
+
+    #[test]
+    fn pow_test1(){
+        assert_eq!(crate::pow_f64(2.0,2.0), 4.0)
+    }
+
+    #[test]
+    fn pow_test2(){
+        assert_eq!(crate::pow_f64(2.0,-2.0), 0.25)
+    }
+
+    #[test]
+    fn pow2_test1(){
+        assert_eq!(crate::pow2_f64(2.0), 4.0)
+    }
+
+    #[test]
+    fn pow2_test2(){
+        assert_eq!(crate::pow2_f64(-2.0), 4.0)
     }
 }
 
