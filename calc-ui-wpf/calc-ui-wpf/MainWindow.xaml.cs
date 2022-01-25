@@ -14,7 +14,27 @@ namespace calc_ui_wpf
             double newNum = calcViewModel.AddNumbers(40.0, 60.0);
             InitializeComponent();
 
-            addNum.Content = newNum.ToString();
+            
+        }
+
+        private void TopBarGrid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+
+        private void exitRustCalcButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void minimizeRustCalcButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

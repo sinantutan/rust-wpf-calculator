@@ -9,6 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\cuddlyferris.png" />
+    <None Remove="Resources\rustacean-gesture.png" />
+    <None Remove="Resources\rustacean-org.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\cuddlyferris.png" />
+    <Resource Include="Resources\rustacean-gesture.png" />
+    <Resource Include="Resources\rustacean-org.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="rust_calc.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

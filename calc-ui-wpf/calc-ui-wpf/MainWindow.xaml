@@ -4,33 +4,281 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:calc_ui_wpf"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Rust Calculator" Height="500" Width="310"
+         WindowStyle="None" ResizeMode="CanMinimize"  Background="Transparent" AllowsTransparency="True" >
+    <Window.Resources>
+        <Style x:Key="utilButtonStyle" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button" >
+                        <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="2" Background="#464646" Opacity="0.8"  >
+                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="4" Background="#3C3C3C" Opacity="1" >
+                                    <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="numButtonStyle" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button" >
+                        <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="2" Background="#626262" Opacity="0.8"  >
+                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="4" Background="#3C3C3C" Opacity="1" >
+                                    <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="enterButtonStyle" TargetType="{x:Type Button}" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button" >
+                        <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="2" Background="#FF7203" Opacity="0.8"  >
+                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="4" Background="CornflowerBlue" Opacity="1" >
+                                    <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    
+    <Grid Background="Transparent">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="75"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="1" 
-                 Grid.Column="1" 
-                 Grid.ColumnSpan="4"
-                 Height="50"
-                 InputScope="Number"></TextBox>
+        <Border CornerRadius="10" 
+                Background="#202020"
+                Grid.ColumnSpan="6"
+                Grid.RowSpan="6"
+                BorderBrush="#888888"
+                BorderThickness="0.5"/>
+        
+        <!-- This rectangle is painted with a horizontal linear gradient. -->
+        <Rectangle Height="470" Width="320"
+                   Grid.ColumnSpan="6"
+                   Grid.RowSpan="6"
+                   Opacity="0.3">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#202020" Offset="0.0" />
+                    <GradientStop Color="#321D00" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
 
-        <Label Grid.Row="2"
-               Grid.Column="1"
-               Name="addNum"/>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" MouseDown="TopBarGrid_MouseDown" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Content="Rust Calculator" Foreground="#FF7203" FontSize="12" FontStretch="UltraCondensed">
+                <Label.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Opacity" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Resources>
+            </Label>
+            <Label Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="0" Content="v0.001" Foreground="#FF7203" FontSize="8" Opacity="0.4" FontStretch="UltraCondensed" Margin="-32,4,0,0"/>
+
+            <Button x:Name="exitRustCalcButton" Grid.Column="5" Grid.Row="0" Background="Transparent" BorderThickness="0" Content="X" Foreground="#FF7203" Opacity="0.7" FontStretch="UltraCondensed" Margin="10,-10,-10,0" Height="20" Width="20" Click="exitRustCalcButton_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="#3C3C3C" CornerRadius="5" >
+                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="minimizeRustCalcButton" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="0" Background="Transparent" BorderThickness="0" Content="−" Foreground="#FF7203" Opacity="0.7" FontStretch="UltraCondensed" Margin="20,-10,-10,0" Height="20" Width="20" Click="minimizeRustCalcButton_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="#3C3C3C" CornerRadius="5" >
+                                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <Image x:Name="ferrisImg"  Stretch="Uniform" 
+               Width="80" Grid.Column="0" Grid.ColumnSpan="3" 
+               HorizontalAlignment="Left" Grid.Row="2" Margin="10,20,0,0" Opacity="0.8" >
+            <Image.Resources>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Source" Value="/Resources/rustacean-org.png"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Source" Value="/Resources/rustacean-gesture.png"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Resources>
+        </Image>
+
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            
+
+            <Button Grid.Column="0" Grid.Row="0" Content="%" FontSize="16" 
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="CE" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
+            <Button Grid.Column="2" Grid.Row="0" Content="C" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
+            <Button Grid.Column="3" Grid.Row="0" Content="⇐" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"   />
+
+            <Button Grid.Column="0" Grid.Row="1" Content="⅟ⅹ" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
+            <Button Grid.Column="1" Grid.Row="1" Content="ⅹ²" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
+            <Button Grid.Column="2" Grid.Row="1" Content="sqrt" FontSize="15"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
+            <Button Grid.Column="3" Grid.Row="1" Content="÷" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
+
+            <Button Grid.Column="0" Grid.Row="2" Content="7" FontSize="16"
+                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="1" Grid.Row="2" Content="8" FontSize="16"
+                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}" />
+            <Button Grid.Column="2" Grid.Row="2" Content="9" FontSize="16"
+                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}" />
+            <Button Grid.Column="3" Grid.Row="2" Content="×" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
+
+            <Button Grid.Column="0" Grid.Row="3" Content="4" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="1" Grid.Row="3" Content="5" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="2" Grid.Row="3" Content="6" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="3" Grid.Row="3" Content="−" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
+
+            <Button Grid.Column="0" Grid.Row="4" Content="1" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}" />
+            <Button Grid.Column="1" Grid.Row="4" Content="2" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="2" Grid.Row="4" Content="3" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="3" Grid.Row="4" Content="+" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
+
+            <Button Grid.Column="0" Grid.Row="5" Content="⁺/₋" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="1" Grid.Row="5" Content="0" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="2" Grid.Row="5" Content="." FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
+            <Button Grid.Column="3" Grid.Row="5" Content="=" FontSize="16"
+                    Foreground="#FFFFFF" Style="{StaticResource enterButtonStyle}"/>
+
+
+
+
+        </Grid>
     </Grid>
 </Window>
