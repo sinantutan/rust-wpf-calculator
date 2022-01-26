@@ -11,7 +11,7 @@ namespace calc_ui_wpf
         public MainWindow()
         {
             var calcViewModel = new CalculatorViewModel();
-            double newNum = calcViewModel.AddNumbers(40.0, 60.0);
+
             InitializeComponent();
 
             
