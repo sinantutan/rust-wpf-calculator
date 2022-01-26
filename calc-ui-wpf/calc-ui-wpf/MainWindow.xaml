@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:calc_ui_wpf"
         
         mc:Ignorable="d"
-        Title="Rust Calculator" Height="500" Width="310"
+        Loaded="MainWindow_Loaded"
+        Title="Rust Calculator" Height="400" Width="310"
          WindowStyle="None" ResizeMode="CanMinimize"  Background="Transparent" AllowsTransparency="True" >
+
+    <!-- Window resources, styles, triggerStyles etc -->
     <Window.Resources>
         <Style x:Key="utilButtonStyle" TargetType="{x:Type Button}" >
             <Setter Property="Template">
@@ -72,7 +75,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Button">
-                                <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="4" Background="CornflowerBlue" Opacity="1" >
+                                <Border CornerRadius="6" BorderBrush="#202020" BorderThickness="4" Background="BlueViolet" Opacity="1" >
                                     <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                             </ControlTemplate>
@@ -81,10 +84,11 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
     </Window.Resources>
-    
-    <Grid Background="Transparent">
+
+    <!-- Main Grid for every child component -->
+    <Grid x:Name="mainAppGrid" Background="Transparent">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition/>
@@ -95,21 +99,21 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="75"/>
             <RowDefinition/>
-            <RowDefinition Height="6"/>
+            <RowDefinition Height="4"/>
         </Grid.RowDefinitions>
 
-        <Border CornerRadius="10" 
+        <Border x:Name="applicationBorder" CornerRadius="10" 
                 Background="#202020"
                 Grid.ColumnSpan="6"
                 Grid.RowSpan="6"
                 BorderBrush="#888888"
                 BorderThickness="0.5"/>
-        
+
         <!-- This rectangle is painted with a horizontal linear gradient. -->
-        <Rectangle Height="470" Width="320"
+        <Rectangle x:Name="BackgroundGradient" Height="440" Width="300"
                    Grid.ColumnSpan="6"
                    Grid.RowSpan="6"
                    Opacity="0.3">
@@ -121,8 +125,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" MouseDown="TopBarGrid_MouseDown" Background="Transparent">
+        <Grid x:Name="titleExitMinimizeGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" MouseDown="TopBarGrid_MouseDown" Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition/>
@@ -135,10 +138,10 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Content="Rust Calculator" Foreground="#FF7203" FontSize="12" FontStretch="UltraCondensed">
+            <Label x:Name="appTitleLabel" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Content="Rusty Calculator" Foreground="#FF7203" FontSize="12" FontStretch="UltraCondensed" Margin="2,0,0,0">
                 <Label.Resources>
                     <Style TargetType="{x:Type Label}">
-                        <Setter Property="Opacity" Value="0"/>
+                        <Setter Property="Opacity" Value="0.5"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Opacity" Value="0.7"/>
@@ -147,7 +150,7 @@
                     </Style>
                 </Label.Resources>
             </Label>
-            <Label Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="0" Content="v0.001" Foreground="#FF7203" FontSize="8" FontStretch="UltraCondensed" Margin="-32,4,0,0">
+            <Label x:Name="appVersLabel" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="6" Content="v.1844aa2" Foreground="#FF7203" FontSize="10" FontStretch="UltraCondensed" Margin="-32,2,0,0">
                 <Label.Resources>
                     <Style TargetType="{x:Type Label}">
                         <Setter Property="Opacity" Value="0"/>
@@ -198,9 +201,11 @@
                 </Button.Resources>
             </Button>
         </Grid>
+
+        <!-- Moscot image -->
         <Image x:Name="ferrisImg"  Stretch="Uniform" 
-               Width="80" Grid.Column="0" Grid.ColumnSpan="3" 
-               HorizontalAlignment="Left" Grid.Row="2" Margin="10,20,0,0" Opacity="0.6" >
+               Width="80" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"
+               HorizontalAlignment="Left" Grid.Row="1" Margin="10,20,0,0" Opacity="0.65" >
             <Image.Resources>
                 <Style TargetType="{x:Type Image}">
                     <Setter Property="Source" Value="/Resources/rustacean-org.png"/>
@@ -213,8 +218,22 @@
             </Image.Resources>
         </Image>
 
+        <!-- Memory label-->
+        <Label x:Name="memoryLabel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="0,0,5,16" 
+               Width="150" Height="30"
+               HorizontalAlignment="Right" VerticalAlignment="Center"
+               Background="Transparent" Foreground="Gray" 
+               HorizontalContentAlignment="Right" VerticalContentAlignment="Top" FontSize="16"/>
+        
+        <!-- Input label -->
+        <Label x:Name="inputLabel" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,0,5,0" 
+               Background="Transparent" Foreground="White"
+               HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom"
+               FontSize="28"  Opacity="0.95" />
 
-        <Grid Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3">
+        <!-- This grid makes it a calculator :) -->
+        <Grid x:Name="calcButtonsGrid" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -230,26 +249,29 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            
 
-            <Button Grid.Column="0" Grid.Row="0" Content="%" FontSize="16" 
+            <!-- First row -->
+            <Button x:Name="procentButton" Grid.Column="0" Grid.Row="0" Content="%" FontSize="16" 
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"/>
             <Button Grid.Column="1" Grid.Row="0" Content="CE" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
-            <Button Grid.Column="2" Grid.Row="0" Content="C" FontSize="16"
+            <Button x:Name="clearButton" Click="clearButton_Click"
+                    Grid.Column="2" Grid.Row="0" Content="C" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
-            <Button Grid.Column="3" Grid.Row="0" Content="⇐" FontSize="16"
+            <Button x:Name="backspaceButton" Grid.Column="3" Grid.Row="0" Content="⇐" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"   />
 
-            <Button Grid.Column="0" Grid.Row="1" Content="⅟ⅹ" FontSize="16"
+            <!-- Second row -->
+            <Button x:Name="oneOverXButton" Grid.Column="0" Grid.Row="1" Content="⅟ⅹ" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
-            <Button Grid.Column="1" Grid.Row="1" Content="ⅹ²" FontSize="16"
+            <Button x:Name="xSqrdButton" Grid.Column="1" Grid.Row="1" Content="ⅹ²" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}" />
             <Button Grid.Column="2" Grid.Row="1" Content="sqrt" FontSize="15"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
             <Button Grid.Column="3" Grid.Row="1" Content="÷" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
 
+            <!-- Third row -->
             <Button Grid.Column="0" Grid.Row="2" Content="7" FontSize="16"
                      Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
             <Button Grid.Column="1" Grid.Row="2" Content="8" FontSize="16"
@@ -259,6 +281,7 @@
             <Button Grid.Column="3" Grid.Row="2" Content="×" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
 
+            <!-- Fourth row -->
             <Button Grid.Column="0" Grid.Row="3" Content="4" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
             <Button Grid.Column="1" Grid.Row="3" Content="5" FontSize="16"
@@ -268,26 +291,33 @@
             <Button Grid.Column="3" Grid.Row="3" Content="−" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
 
-            <Button Grid.Column="0" Grid.Row="4" Content="1" FontSize="16"
+            <!-- Fifth row -->
+            <Button x:Name="oneButton" Click="oneButton_Click"
+                    Grid.Column="0" Grid.Row="4" Content="1" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}" />
-            <Button Grid.Column="1" Grid.Row="4" Content="2" FontSize="16"
+            <Button x:Name="twoButton" Click="twoButton_Click"
+                    Grid.Column="1" Grid.Row="4" Content="2" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
-            <Button Grid.Column="2" Grid.Row="4" Content="3" FontSize="16"
+            <Button x:Name="threeButton" Click="threeButton_Click"
+                    Grid.Column="2" Grid.Row="4" Content="3" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
-            <Button Grid.Column="3" Grid.Row="4" Content="+" FontSize="16"
+            <Button x:Name="plusCalcButton" Click="plusCalcButton_Click"
+                    Grid.Column="3" Grid.Row="4" Content="+" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource utilButtonStyle}"  />
 
-            <Button Grid.Column="0" Grid.Row="5" Content="⁺/₋" FontSize="16"
+            <!-- Sixth row -->
+            <Button x:Name="negateButton" Click="negateButton_Click"
+                    Grid.Column="0" Grid.Row="5" Content="⁺/₋" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
-            <Button Grid.Column="1" Grid.Row="5" Content="0" FontSize="16"
+            <Button x:Name="zeroButton" Click="zeroButton_Click"
+                    Grid.Column="1" Grid.Row="5" Content="0" FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
-            <Button Grid.Column="2" Grid.Row="5" Content="." FontSize="16"
+            <Button x:Name="decimalPointButton" Click="decimalPointButton_Click"
+                    Grid.Column="2" Grid.Row="5" Content="." FontSize="16"
                     Foreground="#FFFFFF" Style="{StaticResource numButtonStyle}"/>
-            <Button Grid.Column="3" Grid.Row="5" Content="=" FontSize="16"
+            <Button x:Name="enterCalcButton" Click="enterCalcButton_Click"
+                    Grid.Column="3" Grid.Row="5" Content="=" FontSize="16" Opacity="0.9"
                     Foreground="#FFFFFF" Style="{StaticResource enterButtonStyle}"/>
-
-
-
 
         </Grid>
     </Grid>

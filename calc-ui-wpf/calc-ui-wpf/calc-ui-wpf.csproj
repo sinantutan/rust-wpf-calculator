@@ -9,19 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\bg-art-text.txt" />
     <None Remove="Resources\cuddlyferris.png" />
     <None Remove="Resources\rustacean-gesture.png" />
     <None Remove="Resources\rustacean-org.png" />
-    <None Remove="rust_calc.dll" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\bg-art-text.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\cuddlyferris.png" />
     <Resource Include="Resources\rustacean-gesture.png" />
     <Resource Include="Resources\rustacean-org.png" />
-    <Resource Include="rust_calc.dll">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="rust_calc.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
 
 </Project>

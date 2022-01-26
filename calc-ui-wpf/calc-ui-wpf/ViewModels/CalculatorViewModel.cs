@@ -31,6 +31,11 @@ namespace calc_ui_wpf.ViewModels
         public double Num1 { get; set; }
         public double Num2 { get; set; }
 
+        public bool IsAdd { get; set; }
+        public bool IsSub { get; set; }
+        public bool IsMulti { get; set; }
+        public bool IsDiv { get; set; }
+
         public double AddNumbers(double num1, double num2)
         {
             return add_f64(num1, num2);
