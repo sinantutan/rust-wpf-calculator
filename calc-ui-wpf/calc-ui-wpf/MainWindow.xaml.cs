@@ -105,17 +105,20 @@ namespace calc_ui_wpf
 
         private void twoButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _calcViewModel.Num1 = _calcViewModel.Num1 * 10 + 2;
+            inputLabel.Content = _calcViewModel.Num1.ToString();
         }
 
         private void threeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _calcViewModel.Num1 = _calcViewModel.Num1 * 10 + 3;
+            inputLabel.Content = _calcViewModel.Num1.ToString();
         }
 
         private void zeroButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _calcViewModel.Num1 = _calcViewModel.Num1 * 10 + 0;
+            inputLabel.Content = _calcViewModel.Num1.ToString();
         }
 
         private void decimalPointButton_Click(object sender, RoutedEventArgs e)
@@ -125,7 +128,8 @@ namespace calc_ui_wpf
 
         private void negateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            //_calcViewModel.Num1 = _calcViewModel.Num1 * (-1);
+            //inputLabel.Content = _calcViewModel.Num1.ToString();
         }
     }
 }

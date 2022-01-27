@@ -203,7 +203,7 @@
         </Grid>
 
         <!-- Moscot image -->
-        <Image x:Name="ferrisImg"  Stretch="Uniform" 
+        <!--<Image x:Name="ferrisImg"  Stretch="Uniform" 
                Width="80" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"
                HorizontalAlignment="Left" Grid.Row="1" Margin="10,20,0,0" Opacity="0.65" >
             <Image.Resources>
@@ -216,7 +216,7 @@
                     </Style.Triggers>
                 </Style>
             </Image.Resources>
-        </Image>
+        </Image>-->
 
         <!-- Memory label-->
         <Label x:Name="memoryLabel" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="0,0,5,16" 
